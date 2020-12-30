@@ -11,11 +11,11 @@ public class Instruction extends NamedValue {
         // Unary Op
         Neg("Neg"), Inc("Inc"),
 
-        // Branch
-        Branch("Branch");
+        // control flow
+        Branch("Br"), Return("Ret");
 
         private String name;
-        private OpCode(String name) {
+        OpCode(String name) {
             this.name = name;
         }
 
@@ -25,16 +25,38 @@ public class Instruction extends NamedValue {
     }
 
     OpCode opCode;
+    BasicBlock basicBlock;
     Value[] operands;
 
-    Instruction(OpCode opCode, String name) {
+    Instruction(OpCode opCode, String name, Value... operands) {
         super(name);
         this.opCode = opCode;
+
+        int opNum = operands.length;
+        if (opNum > 0) {
+            int idx = 0;
+            this.operands = new Value[opNum];
+            for (Value operand : operands) {
+                operand.addUser(this);
+                this.operands[idx++] = operand;
+            }
+        }
     }
 
     int getOperandNum() { return operands.length; }
     Value getOperand(int i) { return operands[i]; }
-    Value setOperand(int i, Value operand) { operands[i] = operand; }
+    public BasicBlock getBasicBlock() {
+        return basicBlock;
+    }
+
+    public Method getMethod() {
+        return getBasicBlock().getMethod();
+    }
+
+    void setOperand(int i, Value operand) { operands[i] = operand; }
+    public void setBasicBlock(BasicBlock basicBlock) {
+        this.basicBlock = basicBlock;
+    }
 }
 
 class BinaryOp extends Instruction {
@@ -52,11 +74,13 @@ class BinaryOp extends Instruction {
     }
 
     public BinaryOp(OpCode opCode, Value lhs, Value rhs) {
-        super(opCode, getBinaryName(opCode));
+        super(opCode, getBinaryName(opCode), lhs, rhs);
         assert isLegalBinaryOp(opCode) : "Not a legal binary Operator.";
-        operands = new Value[2];
-        setOperand(0, lhs);
-        setOperand(1, rhs);
+        if (opCode.equals(OpCode.Cmp))
+            setType(lhs.getType());
+        else
+            setType(BuiltinType.BooleanTy);
+
     }
 
     Value getLHS() { return getOperand(0); }
@@ -67,9 +91,9 @@ class UnaryOp extends Instruction {
     private static int[] idxs = new int[2];
     private static String getUnaryName(OpCode opCode) {
         if (opCode.compareTo(OpCode.Neg) == 0)
-            return "Neg" + idxs[0]++;
+            return opCode.getName() + idxs[0]++;
         else if (opCode.compareTo(OpCode.Inc) == 0)
-            return "Inc" + idxs[1]++;
+            return opCode.getName() + idxs[1]++;
         return "BAD";
     }
 
@@ -79,10 +103,9 @@ class UnaryOp extends Instruction {
     }
 
     public UnaryOp(OpCode opCode, Value operand) {
-        super(opCode, getUnaryName(opCode));
+        super(opCode, getUnaryName(opCode), operand);
         assert isLegalUnaryOp(opCode) : "Not a legal Unary Operator.";
-        operands = new Value[1];
-        operands[0] = operand;
+        setType(operand.getType());
     }
 
     Value getOperand() { return getOperand(0); }
@@ -91,21 +114,17 @@ class UnaryOp extends Instruction {
 class BranchInst extends Instruction {
     private static int idx = 0;
     private static String getBranchName() {
-        return "Branch" + idx++;
+        return OpCode.Branch.getName() + idx++;
     }
 
     public BranchInst(Value succ) {
-        super(OpCode.Branch, getBranchName());
-        operands = new Value[1];
-        setOperand(0, succ);
+        super(OpCode.Branch, getBranchName(), succ);
+        setType(BuiltinType.VoidTy);
     }
 
     public BranchInst(Value predicate, BasicBlock tb, BasicBlock fb) {
-        super(OpCode.Branch, getBranchName());
-        operands = new Value[3];
-        setOperand(0, predicate);
-        setOperand(1, tb);
-        setOperand(2, fb);
+        super(OpCode.Branch, getBranchName(), predicate, tb, fb);
+        setType(BuiltinType.VoidTy);
     }
 
     boolean isConditional() { return getOperandNum() > 1; }
@@ -113,3 +132,23 @@ class BranchInst extends Instruction {
     BasicBlock getTrue() { return (BasicBlock) getOperand(1); }
     BasicBlock getFalse() { return (BasicBlock) getOperand(2); }
 }
+
+class ReturnInst extends Instruction {
+    private static int idx = 0;
+    private static String getReturnName() { return OpCode.Return.getName() + idx++; }
+
+    public ReturnInst() {
+        super(OpCode.Return, getReturnName());
+        setType(BuiltinType.VoidTy);
+    }
+
+    public ReturnInst(Value retVal) {
+        super(OpCode.Return, getReturnName(), retVal);
+        setType(retVal.getType());
+    }
+
+    boolean hasRetVal() { return getOperandNum() != 0; }
+    Value getRetVal() { return getOperand(0); }
+}
+
+
