@@ -4,13 +4,23 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Type {
-    String name;
+    enum TypeKind {
+        BuiltinTy, MethodTy, ClassTy, ArrayTy
+    }
 
-    Type(String name) {
+    String name;
+    TypeKind kind;
+
+    Type(String name, TypeKind kind) {
         this.name = name;
+        this.kind = kind;
     }
 
     String getName() { return name; }
+
+    public TypeKind getKind() {
+        return kind;
+    }
 }
 
 class BuiltinType extends Type {
@@ -25,7 +35,7 @@ class BuiltinType extends Type {
     public static final BuiltinType VoidTy = new BuiltinType("void");
 
     public BuiltinType(String name) {
-        super(name);
+        super(name, TypeKind.BuiltinTy);
     }
 }
 
@@ -42,7 +52,7 @@ class MethodType extends Type {
     Type[] argTys;
 
     public MethodType(Type retTy, Type... argTys) {
-        super(getMethodName(retTy, argTys));
+        super(getMethodName(retTy, argTys), TypeKind.MethodTy);
         this.retTy = retTy;
         if (argTys.length > 0)
             this.argTys = argTys;
@@ -58,7 +68,7 @@ class ClassType extends Type {
     C0Class cls;
 
     public ClassType(C0Class cls) {
-        super(cls.getName());
+        super(cls.getName(), TypeKind.ClassTy);
         this.cls = cls;
     }
 }
@@ -67,7 +77,7 @@ class ArrayType extends Type {
     Type elementTy;
 
     public ArrayType(Type elementTy) {
-        super(elementTy.getName() + "[]");
+        super(elementTy.getName() + "[]", TypeKind.ArrayTy);
         this.elementTy = elementTy;
     }
 

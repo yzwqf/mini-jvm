@@ -1,6 +1,6 @@
 package com.wqf.jvm.compiler0.FIR;
 
-public class C0Class extends NamedValue {
+public class C0Class extends Value {
     Method clsInit;
     C0Class parent;
 

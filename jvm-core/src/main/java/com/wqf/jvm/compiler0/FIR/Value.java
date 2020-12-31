@@ -2,9 +2,18 @@ package com.wqf.jvm.compiler0.FIR;
 
 import java.util.ArrayList;
 
-public class Value {
+public abstract class Value {
     Type type;
+    String name;
     ArrayList<Value> users;
+
+    Value(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public Type getType() {
         return type;
@@ -19,16 +28,6 @@ public class Value {
     }
 
     public void addUser(Value user) { users.add(user); }
-}
 
-class NamedValue extends Value {
-    String name;
-
-    public NamedValue(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
+    abstract String dump();
 }

@@ -2,7 +2,7 @@ package com.wqf.jvm.compiler0.FIR;
 
 import java.util.ArrayList;
 
-public class Method extends NamedValue {
+public class Method extends Value {
     String getMethodName(String cls, String name, String desc) {
         return String.join("_", cls, name, desc);
     }

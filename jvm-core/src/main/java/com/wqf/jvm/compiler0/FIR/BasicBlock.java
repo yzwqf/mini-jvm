@@ -2,7 +2,7 @@ package com.wqf.jvm.compiler0.FIR;
 
 import java.util.ArrayList;
 
-public class BasicBlock extends NamedValue {
+public class BasicBlock extends Value {
     Method method;
     ArrayList<Instruction> instructions;
 
@@ -22,5 +22,13 @@ public class BasicBlock extends NamedValue {
 
     void addInstruction(Instruction inst) {
         instructions.add(inst);
+    }
+
+    String dump() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getName()).append(":\n");
+        for (Instruction inst : instructions)
+            builder.append('\t').append(inst.dump()).append('\n');
+        return builder.toString();
     }
 }
