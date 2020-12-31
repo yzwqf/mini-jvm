@@ -27,4 +27,8 @@ class NamedValue extends Value {
     public NamedValue(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
 }
