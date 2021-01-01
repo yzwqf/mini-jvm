@@ -8,6 +8,8 @@ public interface Instruction {
     return 1;
   }
 
+  int getOpCode();
+
   void execute(Frame frame);
 
   default String debug(String prefix){

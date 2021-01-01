@@ -2,8 +2,10 @@ package com.wqf.jvm.compiler0.FIR;
 
 public class Type {
     public enum TypeKind {
-        BuiltinTy, MethodTy, ClassTy, ArrayTy
+        BuiltinTy, MethodTy, ClassTy, ArrayTy, UnknowTy
     }
+
+    public static Type unknownType = new Type("unknown", TypeKind.UnknowTy);
 
     String name;
     TypeKind kind;

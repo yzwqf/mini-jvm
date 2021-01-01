@@ -11,14 +11,14 @@ import com.wqf.jvm.compiler0.FIR.Module;
 import java.util.HashMap;
 import java.util.List;
 
-public class ByteCode2FIR {
+public class ByteCodeParser {
     private static int moduleCnt = 0;
 
     Module module;
     HashMap<Class, C0Class> classMap;
     HashMap<String, Type> parsedTypes;
 
-    ByteCode2FIR() {
+    ByteCodeParser() {
         this.module = new Module("Module" + moduleCnt++);
         this.classMap = new HashMap<>();
         this.parsedTypes = new HashMap<String, Type>() {
@@ -64,20 +64,24 @@ public class ByteCode2FIR {
         return type;
     }
 
-    void parseByteCode(Method method, com.gxk.jvm.rtda.heap.Method rtMethod) {
-        HashMap<Instruction, com.wqf.jvm.compiler0.FIR.Instruction> bc2fir = new HashMap<>();
-    }
-
     Method parseMethod(com.gxk.jvm.rtda.heap.Method rtMethod) {
-        C0Class cls = classMap.get(rtMethod.clazz.name);
+        C0Class cls = classMap.get(rtMethod.clazz);
         MethodType methodType = (MethodType) parseType(rtMethod.descriptor);
         Method method = new Method(cls, rtMethod, methodType);
+
         int numParams = methodType.getNumParam();
         LocalVar[] localVars = numParams > 0 ? new LocalVar[numParams] : null;
-        for (int idx = 0; idx < methodType.getNumParam(); ++idx)
-            localVars[idx] = new LocalVar(method.getName() + "." + idx, methodType.getArgType(idx), method);
+        for (int i = 0; i < numParams; ++i)
+            localVars[i] = new LocalVar(method.getName() + "." + i, methodType.getArgType(i), method);
         method.setParamVars(localVars);
-        parseByteCode(method, rtMethod);
+
+        int localSize = rtMethod.maxLocals - numParams;
+        LocalVar[] realLocals = localSize > 0 ? new LocalVar[localSize] : null;
+        for (int i = 0; i < localSize; ++i)
+            realLocals[i] = new LocalVar(method.getName() + "." + i, Type.unknownType, method);
+        method.setLocalVars(realLocals);
+
+        method.setBasicBlocks(new FIRBuilder(method).build().getBasicBlocks());
         return method;
     }
 
@@ -108,7 +112,7 @@ public class ByteCode2FIR {
         c0Class.setInterfaces(cls.getInterfaces().stream().map(this::parseClass).toArray(C0Class[]::new));
         // static methods
         c0Class.setStaticMethods(cls.methods.stream().filter(method -> method.isStatic() && !method.isNative() && !isClassInit(method)).
-                map(method -> parseMethod(method)).toArray(Method[]::new));
+                map(this::parseMethod).toArray(Method[]::new));
         // object methods
         c0Class.setObjMethods(cls.methods.stream().filter(method -> !method.isStatic() && !method.isNative() && !isObjectInit(method)).
                 map(this::parseMethod).toArray(Method[]::new));
@@ -116,7 +120,9 @@ public class ByteCode2FIR {
         c0Class.setNativeMethods(cls.methods.stream().filter(com.gxk.jvm.rtda.heap.Method::isNative).
                 map(this::parseMethod).toArray(Method[]::new));
         // <cinit>
-        c0Class.setClassInit(parseMethod(cls.methods.stream().filter(this::isClassInit).findFirst().orElse(null)));
+        com.gxk.jvm.rtda.heap.Method cinit = cls.methods.stream().filter(this::isClassInit).findFirst().orElse(null);
+        if (cinit != null)
+            c0Class.setClassInit(parseMethod(cinit));
         // <init>
         c0Class.setObjInit(cls.methods.stream().filter(this::isObjectInit).map(this::parseMethod).toArray(Method[]::new));
 

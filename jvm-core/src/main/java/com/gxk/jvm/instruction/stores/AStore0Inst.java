@@ -5,7 +5,6 @@ import com.gxk.jvm.rtda.Frame;
 import com.gxk.jvm.rtda.heap.Instance;
 
 public class AStore0Inst implements Instruction {
-
   @Override
   public void execute(Frame frame) {
     Object tmp = frame.popRef();
