@@ -1,9 +1,5 @@
 package com.wqf.jvm.compiler0.FIR;
 
-import com.gxk.jvm.rtda.heap.Class;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-import com.sun.tools.javac.comp.Check;
-
 import java.util.Arrays;
 
 public abstract class Instruction extends Value {
@@ -23,7 +19,12 @@ public abstract class Instruction extends Value {
         // reference
         New("new"), NewArray("newArray"),
         ArrayLength("arrayLength"),
-        CheckCast("objCast"), InstanceOf("instanceOf");
+        CheckCast("objCast"), InstanceOf("instanceOf"),
+        GetElementPtr("getp"), Load("load"), Store("store"),
+        Invoke("invoke"),
+
+        // monitor
+        MonitorEnter("moniter_enter"), MonitorExit("moniter_exit");
 
         private String name;
         OpCode(String name) {
@@ -57,7 +58,18 @@ public abstract class Instruction extends Value {
         return getBasicBlock().getMethod();
     }
 
+    public Value[] getOperands() {
+        return operands;
+    }
+
     void setOperand(int i, Value operand) { operands[i] = operand; }
+
+    public void setOperands(Value[] operands) {
+        this.operands = operands;
+        for (Value operand : operands)
+            operand.addUser(this);
+    }
+
     public void setBasicBlock(BasicBlock basicBlock) {
         this.basicBlock = basicBlock;
     }
@@ -67,9 +79,7 @@ class BinaryOp extends Instruction {
     private static int[] idxs = new int[12];
     private static String getInstName(OpCode opCode) {
         int idx = opCode.compareTo(OpCode.Add);
-        if (idx >= 0 && opCode.compareTo(OpCode.Cmp) <= 0)
-            return opCode.getName() + idxs[idx]++;
-        return "BAD";
+        return opCode.getName() + idxs[idx]++;
     }
 
     private static boolean isLegalBinaryOp(OpCode opCode) {
@@ -79,7 +89,6 @@ class BinaryOp extends Instruction {
 
     public BinaryOp(OpCode opCode, Value lhs, Value rhs) {
         super(opCode, getInstName(opCode), lhs, rhs);
-        assert isLegalBinaryOp(opCode) : "Not a legal binary Operator.";
         if (opCode.equals(OpCode.Cmp))
             setType(lhs.getType());
         else
@@ -104,9 +113,7 @@ class UnaryOp extends Instruction {
     private static String getInstName(OpCode opCode) {
         if (opCode.compareTo(OpCode.Neg) == 0)
             return opCode.getName() + idxs[0]++;
-        else if (opCode.compareTo(OpCode.Inc) == 0)
-            return opCode.getName() + idxs[1]++;
-        return "BAD";
+        return opCode.getName() + idxs[1]++;
     }
 
     private static boolean isLegalUnaryOp(OpCode opCode) {
@@ -116,7 +123,6 @@ class UnaryOp extends Instruction {
 
     public UnaryOp(OpCode opCode, Value operand) {
         super(opCode, getInstName(opCode), operand);
-        assert isLegalUnaryOp(opCode) : "Not a legal Unary Operator.";
         setType(operand.getType());
     }
 
@@ -133,7 +139,7 @@ class UnaryOp extends Instruction {
 class CastInst extends Instruction {
     private static int idx = 0;
     private static String getInstName(BuiltinType ty0, BuiltinType ty1) {
-        return ty0.getName() + "2" + ty1.getName() + idx++;
+        return OpCode.Cast.getName() + idx++;
     }
 
     CastInst(BuiltinType toType, Value operand) {
@@ -214,7 +220,7 @@ class ReturnInst extends Instruction {
 class NewInst extends Instruction {
     private static int idx = 0;
     private static String getInstName(ClassType classType) {
-        return String.join("_", OpCode.New.getName(),
+        return String.join(".", OpCode.New.getName(),
                 classType.getName(), String.valueOf(idx++));
     }
 
@@ -233,7 +239,7 @@ class NewInst extends Instruction {
 class NewArrayInst extends Instruction {
     private static int idx = 0;
     private static String getInstName(ArrayType arrayType) {
-        return String.join("_", OpCode.NewArray.getName(),
+        return String.join(".", OpCode.NewArray.getName(),
                 arrayType.getElementTy().getName(), String.valueOf(idx++));
     }
 
@@ -255,7 +261,6 @@ class ArrayLengthInst extends Instruction {
 
     public ArrayLengthInst(Value array) {
         super(OpCode.ArrayLength, getInstName(), array);
-        assert array.getType().getKind() == Type.TypeKind.ArrayTy : "Not a Array Type!";
         setType(BuiltinType.IntTy);
     }
 
@@ -304,7 +309,107 @@ class InstanceOfInst extends Instruction {
     }
 }
 
+class GetElementPtrInst extends Instruction {
+    private static int idx = 0;
+    private static String getInstName() { return OpCode.GetElementPtr.getName() + idx++; }
 
+    FieldVar fieldVar;
+
+    GetElementPtrInst(Value obj, FieldVar fieldVar) {
+        super(OpCode.GetElementPtr, getInstName(), obj);
+        this.fieldVar = fieldVar;
+    }
+
+    Value getObject() { return getOperand(0); }
+
+    String dump() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getName()).append(" = gep ").append(getObject().getName()).append(", ").append(fieldVar.getName());
+        return builder.toString();
+    }
+}
+
+class LoadInst extends Instruction {
+    private static int idx = 0;
+    private static String getInstName() { return OpCode.Load.getName() + idx++; }
+
+    LoadInst(Value addr) {
+        super(OpCode.Load, getInstName(), addr);
+    }
+
+    Value getAddr() { return getOperand(0); }
+
+    String dump() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getName()).append(" = load ").append(getAddr().getName());
+        return builder.toString();
+    }
+}
+
+class StoreInst extends Instruction {
+    private static int idx = 0;
+    private static String getInstName() { return OpCode.Store.getName() + idx++; }
+
+    StoreInst(Value addr, Value val) {
+        super(OpCode.Store, getInstName(), addr, val);
+    }
+
+    Value getAddr() { return getOperand(0); }
+    Value getValue() { return getOperand(1); }
+
+    String dump() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("store ").append(getAddr().getName()).append(", ").append(getValue().getName());
+        return builder.toString();
+    }
+}
+
+class InvokeInst extends Instruction {
+    private static int idx = 0;
+    private static String getInstName() { return OpCode.Invoke.getName() + idx++; }
+
+    InvokeInst(Value receiver, Method method, Value... args) {
+        super(OpCode.Invoke, getInstName());
+        Value[] operands = new Value[args.length + 2];
+        operands[0] = receiver; operands[1] = method;
+        for (int i = 0; i < args.length; ++i)
+            operands[i+2] = args[i];
+        setOperands(operands);
+    }
+
+    Value getReceiver() { return getOperand(0); }
+    Method getInvokedMethod() { return (Method) getOperand(1); }
+    Value getArg(int idx) { return getOperand(idx+2); }
+    Value[] getArgs() { return Arrays.stream(getOperands()).skip(2).toArray(Value[]::new); }
+
+    String dump() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getReceiver().getName()).append(".").append(getInvokedMethod().getName()).append('(');
+        builder.append(String.join(",", Arrays.stream(getOperands()).
+                map(x -> x.getName()).toArray(String[]::new))).append(')');
+        return builder.toString();
+    }
+}
+
+class MonitorEnterInst extends Instruction {
+    MonitorEnterInst(Value obj) {
+        super(OpCode.MonitorEnter, OpCode.MonitorEnter.getName(), obj);
+    }
+
+    Value getObject() { return getOperand(0); }
+
+    String dump() { return OpCode.MonitorEnter.getName(); }
+}
+
+class MonitorExitInst extends Instruction {
+    MonitorExitInst(Value obj) {
+        super(OpCode.MonitorEnter, OpCode.MonitorExit.getName(), obj);
+    }
+
+    Value getObject() { return getOperand(0); }
+
+    String dump() { return OpCode.MonitorExit.getName(); }
+}
 
 
 

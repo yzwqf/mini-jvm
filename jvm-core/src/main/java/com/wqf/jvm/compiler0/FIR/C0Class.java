@@ -4,32 +4,67 @@ import com.gxk.jvm.rtda.heap.Class;
 
 public class C0Class extends Value {
     Class rtCls;
+    C0Class superCls;
+    C0Class[] interfaces;
+
+    FieldVar[] staticVars;
+    FieldVar[] objVars;
+
     Method classInit;
-    C0Class parent;
-    Method[] methods;
+    Method[] nativeMethods;
+    Method[] staticMethods;
+    Method[] objInit;
+    Method[] objMethods;
 
-    public C0Class(String name) {
-        super(name);
-    }
-
-    public C0Class(Class rtCls, C0Class parent) {
+    public C0Class(Class rtCls) {
         super(rtCls.name);
         this.rtCls = rtCls;
-        this.parent = parent;
     }
 
-    boolean hasParent() { return parent != null; }
-
-    public C0Class getParent() {
-        return parent;
+    public C0Class getSuperCls() {
+        return superCls;
     }
+
+    public Class getRtClass() {
+        return rtCls;
+    }
+
+    boolean hasSuper() { return superCls != null; }
 
     public void setClassInit(Method classInit) {
         this.classInit = classInit;
     }
 
-    public void setMethods(Method[] methods) {
-        this.methods = methods;
+    public void setObjInit(Method[] objInit) {
+        this.objInit = objInit;
+    }
+
+    public void setNativeMethods(Method[] nativeMethods) {
+        this.nativeMethods = nativeMethods;
+    }
+
+    public void setObjMethods(Method[] objMethods) {
+        this.objMethods = objMethods;
+    }
+
+    public void setStaticMethods(Method[] staticMethods) {
+        this.staticMethods = staticMethods;
+    }
+
+    public void setStaticVars(FieldVar[] staticVars) {
+        this.staticVars = staticVars;
+    }
+
+    public void setInterfaces(C0Class[] interfaces) {
+        this.interfaces = interfaces;
+    }
+
+    public void setObjVars(FieldVar[] objVars) {
+        this.objVars = objVars;
+    }
+
+    public void setSuperCls(C0Class superCls) {
+        this.superCls = superCls;
     }
 
     String dump() {
