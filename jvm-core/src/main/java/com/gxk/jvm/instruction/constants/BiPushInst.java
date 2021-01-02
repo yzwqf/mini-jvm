@@ -25,4 +25,6 @@ public class BiPushInst implements Instruction {
   public String format() {
     return "bipush " + val;
   }
+
+  public int getOpCode() { return 0x10; }
 }

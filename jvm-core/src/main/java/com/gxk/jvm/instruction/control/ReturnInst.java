@@ -19,4 +19,6 @@ public class ReturnInst implements Instruction {
   public String format() {
     return "return";
   }
+
+  public int getOpCode() { return 0xb1; }
 }

@@ -16,4 +16,6 @@ public class I2sInst implements Instruction {
     short val = integer.shortValue();
     frame.pushInt(((int) val));
   }
+
+  public int getOpCode() { return 0x93; }
 }

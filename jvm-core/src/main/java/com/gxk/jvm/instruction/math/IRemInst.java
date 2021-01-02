@@ -13,4 +13,6 @@ public class IRemInst implements Instruction {
     Integer v1 = frame.popInt();
     frame.pushInt(v1 % v2);
   }
+
+  public int getOpCode() { return 0x70; }
 }

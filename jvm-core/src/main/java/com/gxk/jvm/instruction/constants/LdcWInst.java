@@ -72,4 +72,6 @@ public class LdcWInst implements Instruction {
   public String format() {
     return "ldcw " + descriptor + " " + val;
   }
+
+  public int getOpCode() { return 0x13; }
 }

@@ -39,4 +39,6 @@ public class AThrowInst implements Instruction {
   public String format() {
     return "athrow";
   }
+
+  public int getOpCode() { return 0xbf; }
 }

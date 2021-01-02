@@ -9,4 +9,6 @@ public class DupX2Inst implements Instruction {
   public void execute(Frame frame) {
     throw new UnsupportedOperationException();
   }
+
+  public int getOpCode() { return 0x5b; }
 }

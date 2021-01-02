@@ -18,4 +18,6 @@ public class CAStoreInst implements Instruction {
   public String format() {
     return "castore";
   }
+
+  public int getOpCode() { return 0x55; }
 }

@@ -24,4 +24,6 @@ public class MultiANewArrayInst implements Instruction{
   public void execute(Frame frame) {
     throw new UnsupportedOperationException(MultiANewArrayInst.class.getName());
   }
+
+  public int getOpCode() { return 0xc5; }
 }

@@ -15,4 +15,6 @@ public class I2dInst implements Instruction {
     Integer tmp = frame.popInt();
     frame.pushDouble(((double) tmp));
   }
+
+  public int getOpCode() { return 0x87; }
 }

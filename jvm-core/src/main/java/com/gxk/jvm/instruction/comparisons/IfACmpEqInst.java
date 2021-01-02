@@ -23,4 +23,6 @@ public class IfACmpEqInst implements Instruction {
       frame.nextPc = frame.getPc() + offset;
     }
   }
+
+  public int getOpCode() { return 0xa5; }
 }

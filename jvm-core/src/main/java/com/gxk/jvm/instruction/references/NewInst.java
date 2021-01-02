@@ -70,5 +70,7 @@ public class NewInst implements Instruction {
   public String format() {
     return "new " + clazz;
   }
+
+  public int getOpCode() { return 0xbb; }
 }
 

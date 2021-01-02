@@ -10,4 +10,6 @@ public class DNegInst implements Instruction {
     double tmp = frame.popDouble();
     frame.pushDouble(-tmp);
   }
+
+  public int getOpCode() { return 0x77; }
 }

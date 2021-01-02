@@ -19,4 +19,6 @@ public class IMulInst implements Instruction {
   public String format() {
     return "imul";
   }
+
+  public int getOpCode() { return 0x68; }
 }

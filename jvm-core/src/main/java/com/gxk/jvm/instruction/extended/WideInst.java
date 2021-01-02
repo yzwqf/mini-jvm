@@ -24,4 +24,6 @@ public class WideInst implements Instruction {
   public void execute(Frame frame) {
     inst.execute(frame);
   }
+
+  public int getOpCode() { return 0xc4; }
 }

@@ -18,4 +18,6 @@ public class IAddInst implements Instruction {
   public String format() {
     return "iadd";
   }
+
+  public int getOpCode() { return 0x60; }
 }

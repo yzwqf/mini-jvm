@@ -27,4 +27,6 @@ public class IfEqInst implements Instruction {
   public String format() {
     return "if_eq " + offset;
   }
+
+  public int getOpCode() { return 0x99; }
 }

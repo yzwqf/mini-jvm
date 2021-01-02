@@ -14,4 +14,6 @@ public class IAndInst implements Instruction {
     int val = v1 & v2;
     frame.pushInt(val);
   }
+
+  public int getOpCode() { return 0x7e; }
 }

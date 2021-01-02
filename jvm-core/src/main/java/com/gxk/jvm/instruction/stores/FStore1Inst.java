@@ -12,4 +12,6 @@ public class FStore1Inst implements Instruction {
     float tmp = frame.popFloat();
     frame.setFloat(1, tmp);
   }
+
+  public int getOpCode() { return 0x44; }
 }

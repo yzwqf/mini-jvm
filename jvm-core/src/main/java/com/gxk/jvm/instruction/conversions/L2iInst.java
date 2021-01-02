@@ -15,4 +15,6 @@ public class L2iInst implements Instruction {
     long tmp = frame.popLong();
     frame.pushInt((int) tmp);
   }
+
+  public int getOpCode() { return 0x88; }
 }

@@ -54,4 +54,6 @@ public class GetFieldInst implements Instruction {
         ", fieldDescriptor='" + fieldDescriptor + '\'' +
         '}';
   }
+
+  public int getOpCode() { return 0xb4; }
 }

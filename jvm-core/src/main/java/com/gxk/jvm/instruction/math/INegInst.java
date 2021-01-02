@@ -12,4 +12,6 @@ public class INegInst implements Instruction {
     int tmp = frame.popInt();
     frame.pushInt(-tmp);
   }
+
+  public int getOpCode() { return 0x74; }
 }

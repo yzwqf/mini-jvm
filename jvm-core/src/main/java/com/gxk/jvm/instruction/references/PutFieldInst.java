@@ -45,4 +45,6 @@ public class PutFieldInst implements Instruction {
   public String format() {
     return "putfield " + clazz + " " + fieldName + " " + fieldDescriptor;
   }
+
+  public int getOpCode() { return 0xb5; }
 }

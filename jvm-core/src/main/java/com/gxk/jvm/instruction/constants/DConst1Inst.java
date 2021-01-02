@@ -9,4 +9,6 @@ public class DConst1Inst implements Instruction {
   public void execute(Frame frame) {
     frame.pushDouble(1.0d);
   }
+
+  public int getOpCode() { return 0xf; }
 }

@@ -17,4 +17,6 @@ public class IALoadInst implements Instruction {
   public String format() {
     return "iaload";
   }
+
+  public int getOpCode() { return 0x2e; }
 }

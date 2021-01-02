@@ -13,4 +13,6 @@ public class LAddInst implements Instruction {
     Long a2 = frame.popLong();
     frame.pushLong(a1 + a2);
   }
+
+  public int getOpCode() { return 0x61; }
 }

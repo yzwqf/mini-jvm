@@ -18,4 +18,6 @@ public class IAStoreInst implements Instruction {
   public String format() {
     return "iastore";
   }
+
+  public int getOpCode() { return 0x4f; }
 }

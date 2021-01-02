@@ -12,4 +12,6 @@ public class LNegInst implements Instruction {
     Long tmp = frame.popLong();
     frame.pushLong(-tmp);
   }
+
+  public int getOpCode() { return 0x75; }
 }

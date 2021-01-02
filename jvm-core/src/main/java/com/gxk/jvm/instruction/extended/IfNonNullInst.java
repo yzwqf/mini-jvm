@@ -30,4 +30,5 @@ public class IfNonNullInst implements Instruction {
     return "if_nonnull " + offset;
   }
 
+  public int getOpCode() { return 0xc7; }
 }

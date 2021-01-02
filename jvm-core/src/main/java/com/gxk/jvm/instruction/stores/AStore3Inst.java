@@ -17,4 +17,6 @@ public class AStore3Inst implements Instruction {
     return "astore_3";
   }
 
+  public int getOpCode() { return 0x4e; }
+
 }

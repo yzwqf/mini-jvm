@@ -28,4 +28,6 @@ public class IfICmpLtInst implements Instruction {
   public String format() {
     return "if_cmplt " + offset;
   }
+
+  public int getOpCode() { return 0xa1; }
 }

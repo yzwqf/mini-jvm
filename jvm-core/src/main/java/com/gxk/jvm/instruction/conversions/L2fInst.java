@@ -15,4 +15,6 @@ public class L2fInst implements Instruction {
     long tmp = frame.popLong();
     frame.pushFloat((float) tmp);
   }
+
+  public int getOpCode() { return 0x89; }
 }

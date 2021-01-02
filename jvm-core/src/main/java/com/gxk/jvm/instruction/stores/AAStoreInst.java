@@ -18,4 +18,6 @@ public class AAStoreInst implements Instruction {
   public String format() {
     return "aastore";
   }
+
+  public int getOpCode() { return 0x53; }
 }

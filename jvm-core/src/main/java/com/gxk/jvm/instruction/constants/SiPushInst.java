@@ -25,4 +25,6 @@ public class SiPushInst implements Instruction {
   public String format() {
     return "sipush " + val;
   }
+
+  public int getOpCode() { return 0x11; }
 }

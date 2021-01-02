@@ -15,4 +15,6 @@ public class D2iInst implements Instruction {
     double tmp = frame.popDouble();
     frame.pushInt(((int) tmp));
   }
+
+  public int getOpCode() { return 0x8e; }
 }

@@ -28,5 +28,6 @@ public class IfACmpNeInst implements Instruction {
   public String format() {
     return "if_acmpne " + offset;
   }
-  
+
+  public int getOpCode() { return 0xa6; }
 }

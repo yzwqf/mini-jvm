@@ -23,4 +23,6 @@ public class IReturnInst implements Instruction {
   public String format() {
     return "ireturn";
   }
+
+  public int getOpCode() { return 0xac; }
 }

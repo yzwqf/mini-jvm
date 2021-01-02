@@ -25,4 +25,6 @@ public class ILoadNInst implements Instruction {
   public String format() {
     return "iload " + n;
   }
+
+  public int getOpCode() { return 0x15; }
 }

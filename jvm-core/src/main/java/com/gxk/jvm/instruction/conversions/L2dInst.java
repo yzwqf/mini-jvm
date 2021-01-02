@@ -15,4 +15,6 @@ public class L2dInst implements Instruction {
     long tmp = frame.popLong();
     frame.pushDouble((double) tmp);
   }
+
+  public int getOpCode() { return 0x8a; }
 }

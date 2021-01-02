@@ -15,4 +15,6 @@ public class D2fInst implements Instruction {
     double tmp = frame.popDouble();
     frame.pushFloat(((float) tmp));
   }
+
+  public int getOpCode() { return 0x90; }
 }

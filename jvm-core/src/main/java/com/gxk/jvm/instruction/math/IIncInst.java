@@ -29,4 +29,6 @@ public class IIncInst implements Instruction {
   public String format() {
     return "iinc " + index + " " + val;
   }
+
+  public int getOpCode() { return 0x84; }
 }

@@ -12,4 +12,6 @@ public class Pop2Inst implements Instruction {
     frame.popRef();
     frame.popRef();
   }
+
+  public int getOpCode() { return 0x58; }
 }

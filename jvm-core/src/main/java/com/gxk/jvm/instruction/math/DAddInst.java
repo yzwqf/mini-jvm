@@ -11,4 +11,6 @@ public class DAddInst implements Instruction {
     double a2 = frame.popDouble();
     frame.pushDouble(a1 + a2);
   }
+
+  public int getOpCode() { return 0x63; }
 }

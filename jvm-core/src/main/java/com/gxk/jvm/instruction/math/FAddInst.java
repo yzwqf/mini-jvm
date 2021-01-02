@@ -13,4 +13,6 @@ public class FAddInst implements Instruction {
     float a2 = frame.popFloat();
     frame.pushFloat(a1 + a2);
   }
+
+  public int getOpCode() { return 0x62; }
 }

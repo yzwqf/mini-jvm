@@ -104,4 +104,6 @@ public class InvokeVirtualInst implements Instruction {
         ", methodDescriptor='" + methodDescriptor + '\'' +
         '}';
   }
+
+  public int getOpCode() { return 0xb6; }
 }

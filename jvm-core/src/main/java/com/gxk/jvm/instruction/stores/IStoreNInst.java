@@ -34,4 +34,6 @@ public class IStoreNInst implements Instruction {
         "n=" + n +
         '}';
   }
+
+  public int getOpCode() { return 0x36; }
 }

@@ -22,4 +22,6 @@ public class FLoadInst implements Instruction {
     float tmp = frame.getFloat(index);
     frame.pushFloat(tmp);
   }
+
+  public int getOpCode() { return 0x17; }
 }

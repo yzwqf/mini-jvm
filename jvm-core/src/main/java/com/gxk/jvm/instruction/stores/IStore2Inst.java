@@ -17,4 +17,6 @@ public class IStore2Inst implements Instruction {
   public String format() {
     return "istore_2";
   }
+
+  public int getOpCode() { return 0x3d; }
 }

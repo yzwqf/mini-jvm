@@ -19,4 +19,6 @@ public class DCmpGInst implements Instruction {
     }
     frame.pushInt(1);
   }
+
+  public int getOpCode() { return 0x98; }
 }

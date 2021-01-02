@@ -68,4 +68,5 @@ public class NewArrayInst implements Instruction {
     return "newarray " + type;
   }
 
+  public int getOpCode() { return 0xbc; }
 }

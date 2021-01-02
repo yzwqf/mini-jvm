@@ -20,4 +20,6 @@ public class IShlInst implements Instruction {
   public String format() {
     return "ishl";
   }
+
+  public int getOpCode() { return 0x78; }
 }

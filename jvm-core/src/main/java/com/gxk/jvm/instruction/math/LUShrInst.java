@@ -21,4 +21,6 @@ public class LUShrInst implements Instruction {
     long ret = (v1 >> s) + (2L << ~s);
     frame.pushLong(ret);
   }
+
+  public int getOpCode() { return 0x7d; }
 }

@@ -12,4 +12,6 @@ public class FLoad3Inst implements Instruction {
     float tmp = frame.getFloat(3);
     frame.pushFloat(tmp);
   }
+
+  public int getOpCode() { return 0x25; }
 }

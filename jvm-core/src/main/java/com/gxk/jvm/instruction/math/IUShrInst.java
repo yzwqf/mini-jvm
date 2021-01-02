@@ -26,4 +26,6 @@ public class IUShrInst implements Instruction {
   public String format() {
     return "iushr";
   }
+
+  public int getOpCode() { return 0x7c; }
 }

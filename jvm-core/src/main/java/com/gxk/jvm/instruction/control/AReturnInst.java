@@ -21,4 +21,6 @@ public class AReturnInst implements Instruction {
   public String format() {
     return "areturn";
   }
+
+  public int getOpCode() { return 0xb0; }
 }

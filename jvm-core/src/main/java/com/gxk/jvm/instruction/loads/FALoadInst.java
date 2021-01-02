@@ -12,4 +12,6 @@ public class FALoadInst implements Instruction {
     PrimitiveArray array = (PrimitiveArray) frame.popRef();
     frame.pushFloat(array.floats[index]);
   }
+
+  public int getOpCode() { return 0x30; }
 }

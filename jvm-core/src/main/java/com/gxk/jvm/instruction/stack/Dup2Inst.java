@@ -15,4 +15,6 @@ public class Dup2Inst implements Instruction {
     frame.push(v1);
     frame.push(v2);
   }
+
+  public int getOpCode() { return 0x5c; }
 }

@@ -92,5 +92,6 @@ public class InvokeInterfaceInst implements Instruction {
     return "invokeinterface " + clazzName + " " + methodName + " " + methodDescriptor;
   }
 
+  public int getOpCode() { return 0xb9; }
 }
 

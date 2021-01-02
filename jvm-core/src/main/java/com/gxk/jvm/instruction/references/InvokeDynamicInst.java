@@ -133,5 +133,6 @@ public class InvokeDynamicInst implements Instruction {
     return "invokedynamic " + methodName + " " + methodDescriptor + " " + bsIdx;
   }
 
+  public int getOpCode() { return 0xba; }
 }
 

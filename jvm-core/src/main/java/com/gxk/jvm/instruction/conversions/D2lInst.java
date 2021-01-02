@@ -15,4 +15,6 @@ public class D2lInst implements Instruction {
     double tmp = frame.popDouble();
     frame.pushLong((long) tmp);
   }
+
+  public int getOpCode() { return 0x8f; }
 }

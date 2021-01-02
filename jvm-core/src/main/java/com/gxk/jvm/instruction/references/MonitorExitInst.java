@@ -13,4 +13,6 @@ public class MonitorExitInst implements Instruction {
     frame.popRef();
 //    throw new UnsupportedOperationException();
   }
+
+  public int getOpCode() { return 0xc3; }
 }

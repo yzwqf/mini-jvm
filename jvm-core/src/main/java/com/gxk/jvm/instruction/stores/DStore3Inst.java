@@ -10,4 +10,6 @@ public class DStore3Inst implements Instruction {
     double tmp = frame.popDouble();
     frame.setDouble(3, tmp);
   }
+
+  public int getOpCode() { return 0x4a; }
 }

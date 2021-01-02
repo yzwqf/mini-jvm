@@ -16,4 +16,6 @@ public class ALoad2Inst implements Instruction {
   public String format() {
     return "aload_2";
   }
+
+  public int getOpCode() { return 0x2c; }
 }

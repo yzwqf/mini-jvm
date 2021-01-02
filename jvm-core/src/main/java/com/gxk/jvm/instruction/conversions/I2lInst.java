@@ -15,4 +15,6 @@ public class I2lInst implements Instruction {
     Integer tmp = frame.popInt();
     frame.pushLong(tmp.longValue());
   }
+
+  public int getOpCode() { return 0x85; }
 }

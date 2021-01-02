@@ -17,4 +17,6 @@ public class CAloadInst implements Instruction {
   public String format() {
     return "caload";
   }
+
+  public int getOpCode() { return 0x34; }
 }

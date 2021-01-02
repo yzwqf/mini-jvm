@@ -13,4 +13,6 @@ public class SwapInst implements Instruction {
     frame.pushRef((Instance) v2);
     frame.pushRef((Instance) v1);
   }
+
+  public int getOpCode() { return 0x5f; }
 }

@@ -11,4 +11,6 @@ public class DRemInst implements Instruction {
     double v1 = frame.popDouble();
     frame.pushDouble(v1 % v2);
   }
+
+  public int getOpCode() { return 0x73; }
 }

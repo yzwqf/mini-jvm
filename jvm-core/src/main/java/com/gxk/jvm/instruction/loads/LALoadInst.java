@@ -17,4 +17,6 @@ public class LALoadInst implements Instruction {
   public String format() {
     return "laload";
   }
+
+  public int getOpCode() { return 0x2f; }
 }

@@ -12,4 +12,6 @@ public class DALoadInst implements Instruction {
     PrimitiveArray array = (PrimitiveArray) frame.popRef();
     frame.pushDouble(array.doubles[index]);
   }
+
+  public int getOpCode() { return 0x31; }
 }

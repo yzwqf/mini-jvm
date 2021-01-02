@@ -15,4 +15,6 @@ public class LShlInst implements Instruction {
     long ret = v1 << s;
     frame.pushLong(ret);
   }
+
+  public int getOpCode() { return 0x79; }
 }

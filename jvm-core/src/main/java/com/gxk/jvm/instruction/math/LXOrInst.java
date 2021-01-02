@@ -13,4 +13,6 @@ public class LXOrInst implements Instruction {
     Long v1 = frame.popLong();
     frame.pushLong(v1 ^ v2);
   }
+
+  public int getOpCode() { return 0x83; }
 }

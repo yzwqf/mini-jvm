@@ -17,4 +17,6 @@ public class ILoad3Inst implements Instruction {
   public String format() {
     return "iload_3";
   }
+
+  public int getOpCode() { return 0x1d; }
 }

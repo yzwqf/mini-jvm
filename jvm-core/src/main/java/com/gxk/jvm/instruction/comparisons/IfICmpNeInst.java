@@ -28,4 +28,6 @@ public class IfICmpNeInst implements Instruction {
   public String format() {
     return "if_cmpne " + offset;
   }
+
+  public int getOpCode() { return 0xa0; }
 }

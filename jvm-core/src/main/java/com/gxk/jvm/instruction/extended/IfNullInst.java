@@ -30,4 +30,6 @@ public class IfNullInst implements Instruction {
   public String format() {
     return "ifnull " + offset;
   }
+
+  public int getOpCode() { return 0xc6; }
 }

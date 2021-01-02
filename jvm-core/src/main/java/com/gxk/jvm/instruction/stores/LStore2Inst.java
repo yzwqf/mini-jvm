@@ -17,4 +17,6 @@ public class LStore2Inst implements Instruction {
   public String format() {
     return "lstore_2";
   }
+
+  public int getOpCode() { return 0x41; }
 }

@@ -18,4 +18,6 @@ public class FReturnInst implements Instruction {
 //    System.out.println("do ret " + tmp);
     Utils.doReturn1();
   }
+
+  public int getOpCode() { return 0xae; }
 }

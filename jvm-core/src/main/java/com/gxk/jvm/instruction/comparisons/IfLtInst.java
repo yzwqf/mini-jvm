@@ -22,4 +22,6 @@ public class IfLtInst implements Instruction {
       frame.nextPc = frame.getPc() + offset;
     }
   }
+
+  public int getOpCode() { return 0x9b; }
 }

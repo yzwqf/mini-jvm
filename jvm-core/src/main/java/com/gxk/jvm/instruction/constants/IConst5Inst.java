@@ -16,4 +16,6 @@ public class IConst5Inst implements Instruction {
   public String format() {
     return "iconst_5";
   }
+
+  public int getOpCode() { return 0x8; }
 }

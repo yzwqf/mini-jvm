@@ -29,4 +29,6 @@ public class IfICmpLeInst implements Instruction {
     return "if_icmple " + offset;
   }
 
+  public int getOpCode() { return 0xa4; }
+
 }

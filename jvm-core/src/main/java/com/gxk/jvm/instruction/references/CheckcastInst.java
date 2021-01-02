@@ -25,4 +25,6 @@ public class CheckcastInst implements Instruction {
   public String format() {
     return "checkcast " + clazz;
   }
+
+  public int getOpCode() { return 0xc0; }
 }

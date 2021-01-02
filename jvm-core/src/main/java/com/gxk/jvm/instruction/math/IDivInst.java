@@ -18,4 +18,6 @@ public class IDivInst implements Instruction {
   public String format() {
     return "idiv";
   }
+
+  public int getOpCode() { return 0x6c; }
 }

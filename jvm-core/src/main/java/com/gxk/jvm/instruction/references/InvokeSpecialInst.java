@@ -58,4 +58,6 @@ public class InvokeSpecialInst implements Instruction {
   public String format() {
     return "invokespecail " + clazz + " " + methodName + " " + methodDescriptor;
   }
+
+  public int getOpCode() { return 0xb7; }
 }

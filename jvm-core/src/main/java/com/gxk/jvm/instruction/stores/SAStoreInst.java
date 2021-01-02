@@ -13,4 +13,6 @@ public class SAStoreInst implements Instruction {
     final PrimitiveArray array = (PrimitiveArray) frame.popRef();
     array.ints[index] = val;
   }
+
+  public int getOpCode() { return 0x56; }
 }

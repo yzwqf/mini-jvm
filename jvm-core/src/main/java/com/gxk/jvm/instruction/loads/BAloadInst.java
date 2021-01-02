@@ -12,4 +12,6 @@ public class BAloadInst implements Instruction {
     PrimitiveArray array = (PrimitiveArray) frame.popRef();
     frame.pushInt(array.ints[index]);
   }
+
+  public int getOpCode() { return 0x33; }
 }

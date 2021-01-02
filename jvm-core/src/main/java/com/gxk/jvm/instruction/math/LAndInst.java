@@ -13,4 +13,6 @@ public class LAndInst implements Instruction {
     long a2 = frame.popLong();
     frame.pushLong(a2 & a1);
   }
+
+  public int getOpCode() { return 0x7f; }
 }

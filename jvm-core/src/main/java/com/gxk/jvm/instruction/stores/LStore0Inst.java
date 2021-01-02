@@ -12,4 +12,6 @@ public class LStore0Inst implements Instruction {
     Long tmp = frame.popLong();
     frame.setLong(0, tmp);
   }
+
+  public int getOpCode() { return 0x3f; }
 }

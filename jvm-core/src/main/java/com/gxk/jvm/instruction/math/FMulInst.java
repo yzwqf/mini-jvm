@@ -14,4 +14,6 @@ public class FMulInst implements Instruction {
     float v1 = frame.popFloat();
     frame.pushFloat(v1 * v2);
   }
+
+  public int getOpCode() { return 0x6a; }
 }

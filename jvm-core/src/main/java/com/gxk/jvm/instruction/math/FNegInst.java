@@ -12,4 +12,6 @@ public class FNegInst implements Instruction {
     float tmp = frame.popFloat();
     frame.pushFloat(-tmp);
   }
+
+  public int getOpCode() { return 0x76; }
 }

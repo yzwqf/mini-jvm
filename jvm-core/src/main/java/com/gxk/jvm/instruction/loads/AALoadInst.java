@@ -19,4 +19,6 @@ public class AALoadInst implements Instruction {
   public String format() {
     return "aaload";
   }
+
+  public int getOpCode() { return 0x32; }
 }

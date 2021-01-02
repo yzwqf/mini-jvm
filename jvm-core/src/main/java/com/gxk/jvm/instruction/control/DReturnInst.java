@@ -16,4 +16,6 @@ public class DReturnInst implements Instruction {
 //    System.out.println("do ret " + tmp);
     Utils.doReturn2();
   }
+
+  public int getOpCode() { return 0xaf; }
 }

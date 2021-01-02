@@ -20,4 +20,6 @@ public class DStoreNInst implements Instruction {
     double tmp = frame.popDouble();
     frame.setDouble(n, tmp);
   }
+
+  public int getOpCode() { return 0x39; }
 }

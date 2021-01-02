@@ -28,4 +28,5 @@ public class AStoreInst implements Instruction {
     return "astore " + index;
   }
 
+  public int getOpCode() { return 0x3a; }
 }

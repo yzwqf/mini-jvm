@@ -20,4 +20,6 @@ public class DLoadInst implements Instruction {
     double tmp = frame.getDouble(index);
     frame.pushDouble(tmp);
   }
+
+  public int getOpCode() { return 0x18; }
 }

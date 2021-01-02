@@ -64,5 +64,7 @@ public class InvokeStaticInst implements Instruction {
         ", descriptor='" + descriptor + '\'' +
         '}';
   }
+
+  public int getOpCode() { return 0xb8; }
 }
 

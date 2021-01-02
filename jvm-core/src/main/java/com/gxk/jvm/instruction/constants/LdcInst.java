@@ -86,4 +86,6 @@ public class LdcInst implements Instruction {
         ", val=" + val +
         '}';
   }
+
+  public int getOpCode() { return 0x12; }
 }

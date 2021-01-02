@@ -17,4 +17,6 @@ public class LLoad2Inst implements Instruction {
   public String format() {
     return "lload2";
   }
+
+  public int getOpCode() { return 0x20; }
 }

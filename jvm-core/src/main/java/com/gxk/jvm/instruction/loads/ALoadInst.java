@@ -26,4 +26,6 @@ public class ALoadInst implements Instruction {
   public String format() {
     return "aload " + index;
   }
+
+  public int getOpCode() { return 0x19; }
 }

@@ -13,4 +13,6 @@ public class DAStoreInst implements Instruction {
     final PrimitiveArray array = (PrimitiveArray) frame.popRef();
     array.doubles[index] = val;
   }
+
+  public int getOpCode() { return 0x52; }
 }

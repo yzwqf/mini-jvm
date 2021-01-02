@@ -22,4 +22,6 @@ public class GotoWInst implements Instruction {
   public void execute(Frame frame) {
     frame.nextPc = frame.getPc() + offset;
   }
+
+  public int getOpCode() { return 0xc8; }
 }

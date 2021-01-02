@@ -11,4 +11,6 @@ public class FConst0Inst implements Instruction {
   public void execute(Frame frame) {
     frame.pushFloat(0.0f);
   }
+
+  public int getOpCode() { return 0xb; }
 }

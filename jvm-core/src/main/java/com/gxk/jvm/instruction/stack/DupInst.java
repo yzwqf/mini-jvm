@@ -17,4 +17,6 @@ public class DupInst implements Instruction {
   public String format() {
     return "dup";
   }
+
+  public int getOpCode() { return 0x59; }
 }

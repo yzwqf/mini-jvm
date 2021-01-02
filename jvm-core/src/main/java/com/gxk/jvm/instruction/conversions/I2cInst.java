@@ -14,4 +14,6 @@ public class I2cInst implements Instruction {
   public void execute(Frame frame) {
     // do nothings
   }
+
+  public int getOpCode() { return 0x92; }
 }

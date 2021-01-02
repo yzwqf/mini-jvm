@@ -15,4 +15,6 @@ public class I2fInst implements Instruction {
     Integer tmp = frame.popInt();
     frame.pushFloat(((float) tmp));
   }
+
+  public int getOpCode() { return 0x86; }
 }

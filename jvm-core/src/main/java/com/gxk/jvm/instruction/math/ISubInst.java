@@ -18,4 +18,6 @@ public class ISubInst implements Instruction {
   public String format() {
     return "isub";
   }
+
+  public int getOpCode() { return 0x64; }
 }

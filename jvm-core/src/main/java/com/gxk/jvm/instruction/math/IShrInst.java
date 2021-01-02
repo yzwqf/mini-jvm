@@ -15,4 +15,6 @@ public class IShrInst implements Instruction {
     int ret = v1 >> s;
     frame.pushInt(ret);
   }
+
+  public int getOpCode() { return 0x7a; }
 }

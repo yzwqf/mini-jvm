@@ -13,4 +13,6 @@ public class MonitorEnterInst implements Instruction {
     frame.popRef();
 //    throw new UnsupportedOperationException();
   }
+
+  public int getOpCode() { return 0xc2; }
 }

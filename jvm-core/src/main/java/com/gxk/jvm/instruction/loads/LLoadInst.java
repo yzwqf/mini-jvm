@@ -20,4 +20,6 @@ public class LLoadInst implements Instruction {
     Long tmp = frame.getLong(index);
     frame.pushLong(tmp);
   }
+
+  public int getOpCode() { return 0x16; }
 }

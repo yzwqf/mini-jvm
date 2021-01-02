@@ -37,4 +37,5 @@ public class Ldc2wInst implements Instruction {
     return "ldc2 " + val2;
   }
 
+  public int getOpCode() { return 0x14; }
 }

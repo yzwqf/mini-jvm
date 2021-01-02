@@ -18,4 +18,6 @@ public class LAStoreInst implements Instruction {
   public String format() {
     return "lastore";
   }
+
+  public int getOpCode() { return 0x50; }
 }

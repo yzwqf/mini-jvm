@@ -45,4 +45,6 @@ public class ANewArrayInst implements Instruction {
   public String format() {
     return "anewarray";
   }
+
+  public int getOpCode() { return 0xbd; }
 }

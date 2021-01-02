@@ -25,4 +25,6 @@ public class AconstNullInst implements Instruction {
   public String format() {
     return "aconst_null";
   }
+
+  public int getOpCode() { return 0x1; }
 }

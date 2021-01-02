@@ -18,4 +18,6 @@ public class NopInst implements Instruction {
   @Override
   public void execute(Frame frame) {
   }
+
+  public int getOpCode() { return 0x0; }
 }

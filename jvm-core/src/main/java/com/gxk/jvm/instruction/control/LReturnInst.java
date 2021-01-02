@@ -19,4 +19,6 @@ public class LReturnInst implements Instruction {
 
     Utils.doReturn2();
   }
+
+  public int getOpCode() { return 0xad; }
 }

@@ -12,4 +12,6 @@ public class LLoad3Inst implements Instruction {
     Long tmp = frame.getLong(3);
     frame.pushLong(tmp);
   }
+
+  public int getOpCode() { return 0x21; }
 }

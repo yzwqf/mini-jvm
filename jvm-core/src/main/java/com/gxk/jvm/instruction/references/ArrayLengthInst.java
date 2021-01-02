@@ -16,4 +16,6 @@ public class ArrayLengthInst implements Instruction {
   public String format() {
     return "arraylength";
   }
+
+  public int getOpCode() { return 0xbe; }
 }

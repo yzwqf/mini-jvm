@@ -31,4 +31,6 @@ public class LookupSwitchInst implements Instruction {
     Integer jump = table.getOrDefault(tmp, def);
     frame.nextPc = frame.getPc() + jump;
   }
+
+  public int getOpCode() { return 0xab; }
 }

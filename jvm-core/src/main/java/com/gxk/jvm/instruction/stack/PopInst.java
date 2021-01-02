@@ -16,4 +16,6 @@ public class PopInst implements Instruction {
   public String format() {
     return "pop";
   }
+
+  public int getOpCode() { return 0x57; }
 }

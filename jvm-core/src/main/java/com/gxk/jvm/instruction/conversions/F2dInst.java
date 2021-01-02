@@ -15,4 +15,6 @@ public class F2dInst implements Instruction {
     float tmp = frame.popFloat();
     frame.pushDouble(((double) tmp));
   }
+
+  public int getOpCode() { return 0x8d; }
 }

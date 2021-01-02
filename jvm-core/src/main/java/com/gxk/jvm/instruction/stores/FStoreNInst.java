@@ -22,4 +22,6 @@ public class FStoreNInst implements Instruction {
     Float tmp = frame.popFloat();
     frame.setFloat(n, tmp);
   }
+
+  public int getOpCode() { return 0x38; }
 }

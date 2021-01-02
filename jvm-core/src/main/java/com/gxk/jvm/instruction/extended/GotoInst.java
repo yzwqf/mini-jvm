@@ -27,4 +27,6 @@ public class GotoInst implements Instruction {
   public String format() {
     return "goto " + offset;
   }
+
+  public int getOpCode() { return 0xa7; }
 }

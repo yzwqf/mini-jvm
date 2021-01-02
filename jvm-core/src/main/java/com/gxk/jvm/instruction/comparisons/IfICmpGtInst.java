@@ -29,4 +29,6 @@ public class IfICmpGtInst implements Instruction {
   public String format() {
     return "if_icmpgt " + offset;
   }
+
+  public int getOpCode() { return 0xa3; }
 }

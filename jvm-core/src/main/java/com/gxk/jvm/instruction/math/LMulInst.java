@@ -14,4 +14,6 @@ public class LMulInst implements Instruction {
     long v1 = frame.popLong();
     frame.pushLong(v1 * v2);
   }
+
+  public int getOpCode() { return 0x69; }
 }

@@ -28,4 +28,6 @@ public class IfICmpGeInst implements Instruction {
   public String format() {
     return "if_icmp_ge";
   }
+
+  public int getOpCode() { return 0xa2; }
 }

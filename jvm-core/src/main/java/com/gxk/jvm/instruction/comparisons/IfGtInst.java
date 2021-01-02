@@ -27,4 +27,6 @@ public class IfGtInst implements Instruction {
   public String format() {
     return "if_gt " + offset;
   }
+
+  public int getOpCode() { return 0x9d; }
 }

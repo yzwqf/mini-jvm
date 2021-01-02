@@ -11,4 +11,6 @@ public class Lconst0Inst implements Instruction {
   public void execute(Frame frame) {
     frame.pushLong(0L);
   }
+
+  public int getOpCode() { return 0x9; }
 }
